@@ -1,15 +1,18 @@
 import './App.css'
+
 import { DATA } from "./data/resume"
 import { HighlightText } from './lib/highlight'
-import { FloatingDockDemo } from './New'
+import {TypingEffect} from './lib/typingeffect'
 function App() {
+  
+
 
 
   return (
     <>
       <h1 className='text-xl bg-red-100'>
         <HighlightText text={DATA.summary}/>
-        <FloatingDockDemo/>
+        <TypingEffect text={DATA.name}/>
       </h1>
     </>
   )

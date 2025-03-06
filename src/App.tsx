@@ -1,19 +1,23 @@
 import './App.css'
+import { Button } from './components/ui/button'
 
 import { DATA } from "./data/resume"
+
 import { HighlightText } from './lib/highlight'
 import {TypingEffect} from './lib/typingeffect'
 function App() {
   
-
-
-
   return (
     <>
       <h1 className='text-xl bg-red-100'>
         <HighlightText text={DATA.summary}/>
-        <TypingEffect text={DATA.name}/>
+        
       </h1>
+      <h2>
+        <TypingEffect text={DATA.name}/>
+      </h2>
+     <Button  />
+     
     </>
   )
 }

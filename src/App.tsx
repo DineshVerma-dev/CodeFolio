@@ -1,28 +1,31 @@
 import './App.css'
-import { Button } from './components/ui/button'
 
-import { DATA } from "./data/resume"
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// @ts-ignore
+import Navbar from './main/Navbar';
+import About from './main/About';
+import Test from './Test';
 
-import { HighlightText } from './lib/highlight'
-import {TypingEffect} from './lib/typingeffect'
-function App() {
-  
+// @ts-ignore
+const Home = () => <div>Home Page</div>;
+
+
+const App = () => {
   return (
     <>
-      <h1 className='text-xl bg-red-100'>
-        <HighlightText text={DATA.summary}/>
-        
-      </h1>
-      <h2>
-        <TypingEffect text={DATA.name}/>
-      </h2>
-     <Button  />
-     
+    <Router>
+      <Navbar/>
+          <Routes>
+            <Route path="/" element={<Test />} />
+            <Route path="/about" element={<About />} />
+            {/* <Route path="/work" element={<Work />} />
+            <Route path="/post" element={<Post />} />
+            <Route path="/gallery" element={<Gallery />} /> */}
+          </Routes>
+    </Router>
     </>
-  )
-}
+    
+  );
+};
 
-export default App
-
-
-
+export default App;

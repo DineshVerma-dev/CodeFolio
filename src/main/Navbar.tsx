@@ -1,152 +1,122 @@
-import * as React from "react";
+import React from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DATA } from "../data/resume"
 
-// Replace the Next.js Link component with a standard anchor tag
-const Link = ({ href, children, ...props }: { href: string; children: React.ReactNode }) => (
-    <a href={href} {...props}>
-        {children}
-    </a>
+// Placeholder icons with brand colors
+const HomeIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+    />
+  </svg>
 );
 
-// Mock Icons component
-const Icons = {
-    logo: (props: React.SVGProps<SVGSVGElement>) => (
-        <svg {...props}>
-            {/* SVG content */}
-        </svg>
-    ),
-};
-
-// Mock utility function
-const cn = (...classes: string[]) => classes.filter(Boolean).join(" ");
-
-// Mock NavigationMenu components
-const NavigationMenu = ({ children }: { children: React.ReactNode }) => <nav>{children}</nav>;
-const NavigationMenuList = ({ children }: { children: React.ReactNode }) => <ul>{children}</ul>;
-const NavigationMenuItem = ({ children }: { children: React.ReactNode }) => <li>{children}</li>;
-const NavigationMenuTrigger = ({ children }: { children: React.ReactNode }) => <button>{children}</button>;
-const NavigationMenuContent = ({ children }: { children: React.ReactNode }) => <div>{children}</div>;
-const NavigationMenuLink = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<"a">>(
-    ({ children, ...props }, ref) => (
-        <a ref={ref} {...props}>
-            {children}
-        </a>
-    )
+const AboutIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
 );
-NavigationMenuLink.displayName = "NavigationMenuLink";
 
-// Mock navigationMenuTriggerStyle function
-const navigationMenuTriggerStyle = () => "trigger-style";
+import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
-const components: { title: string; href: string; description: string }[] = [
-    {
-        title: "Alert Dialog",
-        href: "/docs/primitives/alert-dialog",
-        description: "A modal dialog that interrupts the user with important content and expects a response.",
-    },
-    {
-        title: "Hover Card",
-        href: "/docs/primitives/hover-card",
-        description: "For sighted users to preview content available behind a link.",
-    },
-    {
-        title: "Progress",
-        href: "/docs/primitives/progress",
-        description: "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-    },
-    {
-        title: "Scroll-area",
-        href: "/docs/primitives/scroll-area",
-        description: "Visually or semantically separates content.",
-    },
-    {
-        title: "Tabs",
-        href: "/docs/primitives/tabs",
-        description: "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-    },
-    {
-        title: "Tooltip",
-        href: "/docs/primitives/tooltip",
-        description: "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-    },
-];
+const LinkedInIcon = () => (
+    <FontAwesomeIcon icon={faLinkedin} size="xl" style={{color: "#8accff"}}  />
+);
 
-export function NavigationMenuDemo() {
-    return (
-        <NavigationMenu>
-            <NavigationMenuList>
-                <NavigationMenuItem>
-                    <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                        <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                            <li className="row-span-3">
-                                <NavigationMenuLink>
-                                    <a
-                                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                                        href="/"
-                                    >
-                                        <Icons.logo className="h-6 w-6" />
-                                        <div className="mb-2 mt-4 text-lg font-medium">shadcn/ui</div>
-                                        <p className="text-sm leading-tight text-muted-foreground">
-                                            Beautifully designed components built with Radix UI and Tailwind CSS.
-                                        </p>
-                                    </a>
-                                </NavigationMenuLink>
-                            </li>
-                            <ListItem href="/docs" title="Introduction">
-                                Re-usable components built using Radix UI and Tailwind CSS.
-                            </ListItem>
-                            <ListItem href="/docs/installation" title="Installation">
-                                How to install dependencies and structure your app.
-                            </ListItem>
-                            <ListItem href="/docs/primitives/typography" title="Typography">
-                                Styles for headings, paragraphs, lists...etc
-                            </ListItem>
-                        </ul>
-                    </NavigationMenuContent>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <NavigationMenuTrigger>Components</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                            {components.map((component) => (
-                                <ListItem key={component.title} title={component.title} href={component.href}>
-                                    {component.description}
-                                </ListItem>
-                            ))}
-                        </ul>
-                    </NavigationMenuContent>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <Link href="/docs">
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>Documentation</NavigationMenuLink>
-                    </Link>
-                </NavigationMenuItem>
-            </NavigationMenuList>
-        </NavigationMenu>
-    );
+import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
+
+const TwitterIcon = () => (
+    <FontAwesomeIcon icon={faXTwitter} size="xl" style={{color: "#ffffff",}} />
+);
+
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+
+const GitHubIcon = () => (
+  <FontAwesomeIcon icon={faGithub} size="xl" style={{color: "#ffffff",}} />
+);
+
+const BlogIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
+    fill="#FF5722" // Blog brand color (example: orange)
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+    />
+  </svg>
+);
+
+interface NavItemProps {
+  to: string;
+  icon: React.ReactNode;
+  label: string;
+  active?: boolean;
 }
 
-const ListItem = React.forwardRef<HTMLAnchorElement, React.ComponentPropsWithoutRef<"a">>(
-    ({ className = "", title, children, ...props }, ref) => {
-        return (
-            <li>
-                <NavigationMenuLink>
-                    <a
-                        ref={ref}
-                        className={cn(
-                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                            className
-                        )}
-                        {...props}
-                    >
-                        <div className="text-sm font-medium leading-none">{title}</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
-                    </a>
-                </NavigationMenuLink>
-            </li>
-        );
-    }
-);
-ListItem.displayName = "ListItem";
+function NavItem({ to, icon, active }: NavItemProps) {
+  return (
+    <Link
+      to={to}
+      className={`flex flex-col items-center p-2 mx-1 rounded-lg transition-all duration-300 ${
+        active
+          ? "bg-gray-700 text-white shadow-lg"
+          : "hover:bg-gray-600 text-gray-300 hover:text-white"
+      }`}
+    >
+      {icon}
+    
+    </Link>
+  );
+}
 
+function Navbar() {
+  return (
+    <nav className="fixed bottom-4 left-1/2 transform -translate-x-1/2  max-w-2xl md:top-4 md:bottom-auto md:left-1/2">
+      <div className="flex  bg-gray-800 rounded-xl shadow-2xl">
+        <NavItem to="/" icon={<HomeIcon />} label="Home" active />
+       
+        <NavItem
+          to={DATA.link.linkedin}
+          icon={<LinkedInIcon />}
+          label="LinkedIn"
+        />
+        <NavItem
+          to={DATA.link.leetcode}
+          icon={<TwitterIcon />}
+          label="LeetCode"
+        />
+        <NavItem to={DATA.link.github} icon={<GitHubIcon />} label="GitHub" />
+        <NavItem to="/blog" icon={<BlogIcon />} label="Blog" />
+         <NavItem to="/about" icon={<AboutIcon />} label="About" />
+      </div>
+    </nav>
+  );
+}
 
+export default Navbar;

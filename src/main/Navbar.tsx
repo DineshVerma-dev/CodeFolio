@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DATA } from "../data/resume"
+import { DATA } from "../data/resume";
+import { faLinkedin, faXTwitter, faGithub } from "@fortawesome/free-brands-svg-icons";
 
-// Placeholder icons with brand colors
-const HomeIcon = () => (
+// Custom icon components with dynamic color
+const HomeIcon = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6"
+    className={`h-6 w-6 ${className}`}
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -21,10 +22,10 @@ const HomeIcon = () => (
   </svg>
 );
 
-const AboutIcon = () => (
+const AboutIcon = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6"
+    className={`h-6 w-6 ${className}`}
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -38,30 +39,13 @@ const AboutIcon = () => (
   </svg>
 );
 
-import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
-
-const LinkedInIcon = () => (
-    <FontAwesomeIcon icon={faLinkedin} size="xl" style={{color: "#8accff"}}  />
-);
-
-import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
-
-const TwitterIcon = () => (
-    <FontAwesomeIcon icon={faXTwitter} size="xl" style={{color: "#ffffff",}} />
-);
-
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
-
-const GitHubIcon = () => (
-  <FontAwesomeIcon icon={faGithub} size="xl" style={{color: "#ffffff",}} />
-);
-
-const BlogIcon = () => (
+const BlogIcon = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6"
-    fill="#FF5722" // Blog brand color (example: orange)
+    className={`h-6 w-6 ${className}`}
     viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
   >
     <path
       strokeLinecap="round"
@@ -79,41 +63,66 @@ interface NavItemProps {
   active?: boolean;
 }
 
-function NavItem({ to, icon, active }: NavItemProps) {
+function NavItem({ to, icon, label, active }: NavItemProps) {
   return (
     <Link
       to={to}
-      className={`flex flex-col items-center p-2 mx-1 rounded-lg transition-all duration-300 ${
-        active
-          ? "bg-gray-700 text-white shadow-lg"
-          : "hover:bg-gray-600 text-gray-300 hover:text-white"
+      className={`group relative flex flex-col items-center p-3 mx-1 rounded-xl transition-all duration-300 ${
+        active 
+          ? "bg-gradient-to-b from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/50"
+          : "hover:bg-gradient-to-b from-gray-700 to-gray-800 text-gray-300 hover:text-white hover:shadow-lg hover:shadow-blue-500/30"
       }`}
     >
-      {icon}
-    
+      <div className="transform transition-all duration-300 group-hover:-translate-y-2">
+        {icon}
+      </div>
+      <span className={`absolute -bottom-2 text-xs font-medium ${
+        active ? 'text-blue-200' : 'text-gray-300'
+      } opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
+        {label}
+      </span>
+      {active && (
+        <div className="absolute -bottom-2 w-1 h-1 bg-blue-300 rounded-full animate-ping"></div>
+      )}
     </Link>
   );
 }
 
 function Navbar() {
   return (
-    <nav className="fixed bottom-4 left-1/2 transform -translate-x-1/2  max-w-2xl md:top-4 md:bottom-auto md:left-1/2">
-      <div className="flex  bg-gray-800 rounded-xl shadow-2xl">
-        <NavItem to="/" icon={<HomeIcon />} label="Home" active />
-       
+    <nav className="fixed bottom-4 left-1/2 transform -translate-x-1/2 max-w-2xl md:top-4 md:bottom-auto">
+      <div className="flex bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-2xl p-1.5">
+        <NavItem 
+          to="/" 
+          icon={<HomeIcon className="group-hover:stroke-[1.5] transition-all" />} 
+          label="Home" 
+          active 
+        />
         <NavItem
           to={DATA.link.linkedin}
-          icon={<LinkedInIcon />}
+          icon={<FontAwesomeIcon icon={faLinkedin} size="xl" />}
           label="LinkedIn"
         />
         <NavItem
           to={DATA.link.leetcode}
-          icon={<TwitterIcon />}
-          label="LeetCode"
+          icon={<FontAwesomeIcon icon={faXTwitter} size="xl" />}
+          label="Twitter"
         />
-        <NavItem to={DATA.link.github} icon={<GitHubIcon />} label="GitHub" />
-        <NavItem to="/blog" icon={<BlogIcon />} label="Blog" />
-         <NavItem to="/about" icon={<AboutIcon />} label="About" />
+        <NavItem 
+          to={DATA.link.github} 
+          icon={<FontAwesomeIcon icon={faGithub} size="xl" />} 
+          label="GitHub" 
+        />
+        <NavItem 
+          to="/blog" 
+          icon={<BlogIcon className="group-hover:stroke-[1.5] transition-all" />} 
+          label="Blog" 
+        />
+        <NavItem 
+          to="/about" 
+          icon={<AboutIcon className="group-hover:stroke-[1.5] transition-all" />} 
+          label="About" 
+        />
       </div>
     </nav>
   );

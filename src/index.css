@@ -1,5 +1,9 @@
 @import "tailwindcss";
-
+@supports (padding: max(0px)) {
+  .pb-safe {
+    padding-bottom: max(env(safe-area-inset-bottom), 1rem);
+  }
+}
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));

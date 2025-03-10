@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DATA } from "../data/resume";
 import { faLinkedin, faXTwitter, faGithub } from "@fortawesome/free-brands-svg-icons";
 
-// Responsive icon components
+// Custom icon components with dynamic color
 const HomeIcon = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className={`h-5 w-5 md:h-6 md:w-6 ${className}`}
+    className={`h-6 w-6 ${className}`}
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -25,7 +25,7 @@ const HomeIcon = ({ className }: { className?: string }) => (
 const AboutIcon = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className={`h-5 w-5 md:h-6 md:w-6 ${className}`}
+    className={`h-6 w-6 ${className}`}
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -42,7 +42,7 @@ const AboutIcon = ({ className }: { className?: string }) => (
 const BlogIcon = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className={`h-5 w-5 md:h-6 md:w-6 ${className}`}
+    className={`h-6 w-6 ${className}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -67,22 +67,22 @@ function NavItem({ to, icon, label, active }: NavItemProps) {
   return (
     <Link
       to={to}
-      className={`group relative flex flex-col items-center p-2 md:p-3 mx-1 rounded-xl transition-all duration-300 ${
+      className={`group relative flex flex-col items-center p-3 mx-1 rounded-xl transition-all duration-300 ${
         active 
           ? "bg-gradient-to-b from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/50"
           : "hover:bg-gradient-to-b from-gray-700 to-gray-800 text-gray-300 hover:text-white hover:shadow-lg hover:shadow-blue-500/30"
       }`}
     >
-      <div className="transform transition-all duration-300 group-hover:-translate-y-1 md:group-hover:-translate-y-2">
+      <div className="transform transition-all duration-300 group-hover:-translate-y-2">
         {icon}
       </div>
-      <span className={`absolute -bottom-2 text-[0.6rem] md:text-xs font-medium ${
+      <span className={`absolute -bottom-2 text-xs font-medium ${
         active ? 'text-blue-200' : 'text-gray-300'
-      } opacity-100 md:opacity-0 group-hover:md:opacity-100 transition-opacity duration-300`}>
+      } opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
         {label}
       </span>
       {active && (
-        <div className="absolute -bottom-1 md:-bottom-2 w-1 h-1 bg-blue-300 rounded-full animate-ping"></div>
+        <div className="absolute -bottom-2 w-1 h-1 bg-blue-300 rounded-full animate-ping"></div>
       )}
     </Link>
   );
@@ -90,8 +90,8 @@ function NavItem({ to, icon, label, active }: NavItemProps) {
 
 function Navbar() {
   return (
-    <nav className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-2xl md:top-4 md:bottom-auto pb-safe md:pb-0">
-      <div className="flex bg-gray-800/80 backdrop-blur-sm rounded-none md:rounded-xl shadow-2xl p-1 md:p-1.5 mx-4 md:mx-auto justify-between md:justify-center">
+    <nav className="fixed bottom-4 left-1/2 transform -translate-x-1/2 max-w-2xl md:top-4 md:bottom-auto">
+      <div className="flex bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-2xl p-1.5">
         <NavItem 
           to="/" 
           icon={<HomeIcon className="group-hover:stroke-[1.5] transition-all" />} 
@@ -100,17 +100,17 @@ function Navbar() {
         />
         <NavItem
           to={DATA.link.linkedin}
-          icon={<FontAwesomeIcon icon={faLinkedin} className="text-lg md:text-xl" />}
+          icon={<FontAwesomeIcon icon={faLinkedin} size="xl" />}
           label="LinkedIn"
         />
         <NavItem
           to={DATA.link.leetcode}
-          icon={<FontAwesomeIcon icon={faXTwitter} className="text-lg md:text-xl" />}
+          icon={<FontAwesomeIcon icon={faXTwitter} size="xl" />}
           label="Twitter"
         />
         <NavItem 
           to={DATA.link.github} 
-          icon={<FontAwesomeIcon icon={faGithub} className="text-lg md:text-xl" />} 
+          icon={<FontAwesomeIcon icon={faGithub} size="xl" />} 
           label="GitHub" 
         />
         <NavItem 
@@ -128,4 +128,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Navbar;   
